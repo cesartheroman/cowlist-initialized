@@ -16,14 +16,30 @@ module.exports = {
   postCow: (req, res) => {
     let params = [req.body.name, req.body.description];
     models
-      .saveCow(params)
-      .then((results) => {
-        console.log('RESULTS FROM POSTING', results);
+      .saveOne(params)
+      .then(() => {
         res.sendStatus(201);
       })
       .catch((err) => {
         console.log('ERROR IN CONTROLLER POSTCOW', err);
         res.send('Oops soemthing went wrong!');
       });
+  },
+
+  editCow: (req, res) => {
+    console.log(req.body.id);
+    let id = req.body.id;
+    let params = [req.body.name, req.body.description];
+    models
+      .updateOne(id, params)
+      .then(() => res.sendStatus(204))
+      .catch((err) => {
+        console.log('ERROR IN CONTROLLER EDITCOW', err);
+        res.send('Oops soemthing went wrong!');
+      });
+  },
+
+  deleteCow: (req, res) => {
+    // models.removeOne
   },
 };

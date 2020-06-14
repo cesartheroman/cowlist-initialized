@@ -5,10 +5,21 @@ module.exports = {
     return db.queryAsync(`SELECT * FROM cows`);
   },
 
-  saveCow: (params) => {
+  saveOne: (params) => {
     return db.queryAsync(
       `INSERT INTO cows(name, description) VALUES(?, ?)`,
       params
     );
+  },
+
+  updateOne: (id, params) => {
+    return db.queryAsync(
+      `UPDATE cows SET name = ?, description = ? WHERE id = ${id}`,
+      params
+    );
+  },
+
+  removeOne: () => {
+    //return db.querAsync()
   },
 };

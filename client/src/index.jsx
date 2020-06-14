@@ -15,6 +15,8 @@ class App extends React.Component {
       currCowSelected: false,
     };
     this.addCow = this.addCow.bind(this);
+    this.editCow = this.editCow.bind(this);
+    this.deleteCow = this.deleteCow.bind(this);
     this.getCurrCow = this.getCurrCow.bind(this);
   }
 
@@ -44,6 +46,20 @@ class App extends React.Component {
     this.loadCows();
   }
 
+  editCow(cow) {
+    cow.name = 'hownowcow';
+    cow.description = 'testing';
+    let id = cow.id;
+    axios
+      .put('api/cows/${id}', cow)
+      .then(() => console.log('Successfully edited cow'))
+      .catch((err) => console.log('something went wrong in editing', err));
+  }
+
+  deleteCow(cow) {
+    // axios.delete().then().catch()
+  }
+
   getCurrCow(cow) {
     this.setState({
       currCow: cow,
@@ -60,7 +76,12 @@ class App extends React.Component {
         ) : (
           <div></div>
         )}
-        <CowList cows={this.state.cows} clickHandler={this.getCurrCow} />
+        <CowList
+          cows={this.state.cows}
+          showCurr={this.getCurrCow}
+          edit={this.editCow}
+          delete={this.deleteCow}
+        />
         <SubmitCow addCow={this.addCow} />
       </div>
     );

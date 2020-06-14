@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Cowlist from './components/cowlist';
+import CowList from './components/cowlist';
 import SubmitCow from './components/submitCow';
+import CowModal from './components/cowModal';
 
 class App extends React.Component {
   constructor(props) {
@@ -20,8 +21,11 @@ class App extends React.Component {
             'a legendary Chinese warrior from the Northern and Southern dynasties period (420–589) of Chinese history.',
         },
       ],
+      currCow: {},
+      currCowSelected: false,
     };
     this.addCow = this.addCow.bind(this);
+    this.getCurrCow = this.getCurrCow.bind(this);
   }
 
   addCow(cow) {
@@ -33,11 +37,23 @@ class App extends React.Component {
     });
   }
 
+  getCurrCow(cow) {
+    this.setState({
+      currCow: cow,
+      currCowSelected: true,
+    });
+  }
+
   render() {
     return (
       <div>
         <h1>This is CowList!</h1>
-        <Cowlist cows={this.state.cows} />
+        {this.state.currCowSelected ? (
+          <CowModal cow={this.state.currCow} />
+        ) : (
+          <div></div>
+        )}
+        <CowList cows={this.state.cows} clickHandler={this.getCurrCow} />
         <SubmitCow addCow={this.addCow} />
       </div>
     );

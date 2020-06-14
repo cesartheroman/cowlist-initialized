@@ -29,26 +29,28 @@ class SubmitCow extends React.Component {
 
   render() {
     return (
-      <form className="cow-form" onSubmit={this.handleSubmit}>
-        <label>Input Cow Name: </label>
-        <input
-          id="name"
-          type="text"
-          placeholder="cow name"
-          value={this.state.name}
-          onChange={(event) => this.handleChange(event)}
-        ></input>
-        <label>Input Cow Description: </label>
-        <input
-          id="description"
-          text="text"
-          placeholder="cow description"
-          value={this.state.description}
-          onChange={(event) => this.handleChange(event)}
-        ></input>
-
-        <input value="Add Cow!" type="submit" />
-      </form>
+      <div>
+        <h3>Add a Cow below!</h3>
+        <form className="cow-form" onSubmit={this.handleSubmit}>
+          <label>Input Cow Name: </label>
+          <input
+            id="name"
+            type="text"
+            placeholder="cow name"
+            value={this.state.name}
+            onChange={(event) => this.handleChange(event)}
+          ></input>
+          <label>Input Cow Description: </label>
+          <input
+            id="description"
+            text="text"
+            placeholder="cow description"
+            value={this.state.description}
+            onChange={(event) => this.handleChange(event)}
+          ></input>
+          <input value="Add Cow!" type="submit" />
+        </form>
+      </div>
     );
   }
 }

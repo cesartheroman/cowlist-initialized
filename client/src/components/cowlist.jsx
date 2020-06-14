@@ -1,13 +1,24 @@
 import React from 'react';
 
-const Cowlist = (props) => {
+const CowList = (props) => {
   return (
     <ul>
       {props.cows.map((cow) => {
-        return <li>{cow.name}</li>;
+        return (
+          <li
+            onClick={() =>
+              props.clickHandler({
+                name: cow.name,
+                description: cow.description,
+              })
+            }
+          >
+            {cow.name}
+          </li>
+        );
       })}
     </ul>
   );
 };
 
-export default Cowlist;
+export default CowList;

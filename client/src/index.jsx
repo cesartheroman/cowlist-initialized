@@ -21,13 +21,24 @@ class App extends React.Component {
         },
       ],
     };
+    this.addCow = this.addCow.bind(this);
   }
+
+  addCow(cow) {
+    console.log('COW OBJECT:', cow);
+    let temp = this.state.cows.slice();
+    temp.push(cow);
+    this.setState({
+      cows: temp,
+    });
+  }
+
   render() {
     return (
       <div>
         <h1>This is CowList!</h1>
         <Cowlist cows={this.state.cows} />
-        <SubmitCow />
+        <SubmitCow addCow={this.addCow} />
       </div>
     );
   }

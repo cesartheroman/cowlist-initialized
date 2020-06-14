@@ -8,39 +8,46 @@ class SubmitCow extends React.Component {
       description: '',
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event, id) {
+  handleChange(event) {
     this.setState({
-      [id]: event.target.value,
+      [event.target.id]: event.target.value,
     });
   }
 
-  handleClick() {
+  handleSubmit(event) {
     event.preventDefault();
-    console.log('clicked!');
+    this.props.addCow(this.state);
+
+    this.setState({
+      name: '',
+      description: '',
+    });
   }
 
   render() {
     return (
-      <form className="cow-form">
+      <form className="cow-form" onSubmit={this.handleSubmit}>
         <label>Input Cow Name: </label>
         <input
           id="name"
           type="text"
           placeholder="cow name"
-          onChange={(event, id) => this.handleChange(event, id)}
+          value={this.state.name}
+          onChange={(event) => this.handleChange(event)}
         ></input>
         <label>Input Cow Description: </label>
         <input
           id="description"
           text="text"
           placeholder="cow description"
-          onChange={(event, id) => this.handleChange(event, id)}
+          value={this.state.description}
+          onChange={(event) => this.handleChange(event)}
         ></input>
 
-        <button onClick={this.handleClick}>Add Cow!</button>
+        <input value="Add Cow!" type="submit" />
       </form>
     );
   }

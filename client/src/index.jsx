@@ -25,7 +25,7 @@ class App extends React.Component {
   }
 
   loadCows() {
-    return axios
+    axios
       .get('/api/cows')
       .then(({ data }) => {
         let state = this.state.cows.slice();
@@ -57,7 +57,13 @@ class App extends React.Component {
   }
 
   deleteCow(cow) {
-    // axios.delete().then().catch()
+    let id = cow.id;
+    axios
+      .delete(`api/cows/${id}`, { data: cow.id })
+      .then(() => console.log('Successfully deleted cow'))
+      .catch((err) => console.log('something went wrong in deleting', err));
+
+    this.loadCows();
   }
 
   getCurrCow(cow) {

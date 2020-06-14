@@ -32,7 +32,7 @@ module.exports = {
     let params = [req.body.name, req.body.description];
     models
       .updateOne(id, params)
-      .then(() => res.sendStatus(204))
+      .then(() => res.sendStatus(201))
       .catch((err) => {
         console.log('ERROR IN CONTROLLER EDITCOW', err);
         res.send('Oops soemthing went wrong!');
@@ -40,6 +40,12 @@ module.exports = {
   },
 
   deleteCow: (req, res) => {
-    // models.removeOne
+    models
+      .removeOne(req.params.id)
+      .then(() => res.sendStatus(200))
+      .catch((err) => {
+        console.log('ERROR IN CONTROLLER DELETECOW', err);
+        res.send(500);
+      });
   },
 };

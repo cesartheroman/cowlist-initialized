@@ -19,7 +19,7 @@ module.exports = {
     );
   },
 
-  removeOne: () => {
-    //return db.querAsync()
+  removeOne: (id) => {
+    return db.queryAsync(`DELETE FROM cows where id = ?`, [id]);
   },
 };

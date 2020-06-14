@@ -1,5 +1,4 @@
 import React from 'react';
-import CowModal from './cowModal';
 
 class CowListEntry extends React.Component {
   constructor(props) {
@@ -10,6 +9,7 @@ class CowListEntry extends React.Component {
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.hanldeDelete = this.handleDelete.bind(this);
   }
 
   handleClick(cow) {
@@ -20,8 +20,12 @@ class CowListEntry extends React.Component {
   }
 
   handleEdit(cow) {
-    // console.log(cow);
     this.props.edit(cow);
+  }
+
+  handleDelete(cow) {
+    console.log('COW TO BE DELETED', cow);
+    this.props.delete(cow);
   }
 
   render() {
@@ -29,23 +33,25 @@ class CowListEntry extends React.Component {
       <ul>
         {this.props.cows.map((cow, i) => {
           return (
-            <li key={i} onClick={() => this.handleClick(cow)}>
-              {cow.name}
-              {'   '}
+            <React.Fragment key={i}>
+              <li onClick={() => this.handleClick(cow)}>
+                {cow.name}
+                {'   '}
+              </li>
+
               <input
                 name="editCow"
                 type="submit"
                 value="Edit"
                 onClick={() => this.handleEdit(cow)}
               ></input>
-              {'   '}
               <input
                 name="deleteCow"
                 type="submit"
                 value="Delete"
-                onClick={() => this.props.delete(cow)}
+                onClick={() => this.handleDelete(cow)}
               ></input>
-            </li>
+            </React.Fragment>
           );
         })}
       </ul>

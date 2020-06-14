@@ -3,9 +3,10 @@ import React from 'react';
 const CowList = (props) => {
   return (
     <ul>
-      {props.cows.map((cow) => {
+      {props.cows.map((cow, i) => {
         return (
           <li
+            key={i}
             onClick={() =>
               props.clickHandler({
                 name: cow.name,
@@ -14,6 +15,10 @@ const CowList = (props) => {
             }
           >
             {cow.name}
+            {'   '}
+            <input name="editCow" type="submit" value="Edit"></input>
+            {'   '}
+            <input name="deleteCow" type="submit" value="Delete"></input>
           </li>
         );
       })}

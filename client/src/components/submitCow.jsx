@@ -19,7 +19,10 @@ class SubmitCow extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.addCow(this.state);
+    this.props.addCow({
+      name: this.state.name,
+      description: this.state.description,
+    });
 
     this.setState({
       name: '',

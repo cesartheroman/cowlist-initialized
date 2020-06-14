@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 
 import CowList from './components/cowlist';
 import SubmitCow from './components/submitCow';
@@ -9,18 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cows: [
-        {
-          name: 'Buttercup',
-          description:
-            'herbaceous plant with bright yellow cup-shaped flowers, common in grassland and as a garden weed. All kinds are poisonous and generally avoided by livestock.',
-        },
-        {
-          name: 'MooLawn',
-          description:
-            'a legendary Chinese warrior from the Northern and Southern dynasties period (420–589) of Chinese history.',
-        },
-      ],
+      cows: [],
       currCow: {},
       currCowSelected: false,
     };
@@ -28,13 +18,30 @@ class App extends React.Component {
     this.getCurrCow = this.getCurrCow.bind(this);
   }
 
+  componentDidMount() {
+    this.loadCows();
+  }
+
+  loadCows() {
+    return axios
+      .get('/api/cows')
+      .then(({ data }) => {
+        let state = this.state.cows.slice();
+        state.push(data);
+        this.setState({
+          cows: data,
+        });
+      })
+      .catch((err) => console.log(err));
+  }
+
   addCow(cow) {
-    console.log('COW OBJECT:', cow);
-    let temp = this.state.cows.slice();
-    temp.push(cow);
-    this.setState({
-      cows: temp,
-    });
+    axios
+      .post('api/cows', cow)
+      .then(() => console.log('Succesfully added cow!'))
+      .catch((err) => console.log('something went wrong', err));
+
+    this.loadCows();
   }
 
   getCurrCow(cow) {
